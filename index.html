@@ -37,16 +37,33 @@
     </div>
 
     <div>
+      <h1>Currency Codes and Names</h1>
+      <br />
+      <button id="countryName">
+        See a list of all Country names and their respective Currency codes
+      </button>
+      <p>
+        API by <a href="https://api.coinbase.com/v2/currencies">Coinbase</a>
+      </p>
+      <hr />
+      <div id="id"></div>
+      <div id="countryError"></div>
+    </div>
+
+    <div>
       <h1>See Conversion Rates of a Currency</h1>
       Currency Code (e.g NGN, US, CAD)
-      <input type="text" id="currencyCode" />
-      <button>Check Conversion Rates</button>
-      <p>
-        <b>
-          ****Under Development******** I have to push before 10am. Check back
-          later
-        </b>
-      </p>
+      <input type="text" id="currencyCode" /><br /><br />
+      <button id="convertRate">Check Conversion Rates</button>
+      <div>
+        <h3 id="baseCurr"></h3>
+        <h1 class="h1" id="error"></h1>
+        <div id="convert"></div>
+        <p>
+          API by <a href="https://v6.exchangerate-api.com">Exchange Rate-API</a>
+        </p>
+        <hr />
+      </div>
     </div>
   </body>
 </html>
