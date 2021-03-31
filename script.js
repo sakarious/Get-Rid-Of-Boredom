@@ -5,6 +5,7 @@ const UserInput = document.querySelector('#text')
 const Submit= document.querySelector('#submit')
 const Result = document.querySelector('#result')
 const Refresh = document.querySelector('#reload')
+const AgeError = document.querySelector('#AgeError')
 let Name;
 
 //For Cute Dog Images
@@ -12,6 +13,7 @@ let Name;
 const DogBaseURL = 'https://dog.ceo/api/breeds/image/random'
 const DogButton = document.querySelector('#dogBtn')
 const DogImage = document.querySelector('#image')
+const DogError = document.querySelector('#DogError')
 
 // Currency Codes and Names
 
@@ -30,19 +32,24 @@ const AllConversion = document.querySelector('#convert')
 const Error = document.querySelector('#error')
 let currency;
 
+//For Predict Age
 Submit.addEventListener('click', () => {
     if(UserInput.value.length >= 1){
         Name = UserInput.value.toLowerCase();
 
         (async () => {
-            let fetchedProm = await fetch(`${BaseURL}${Name}`)
-            let JsonResponse = await fetchedProm.json();
-            let Username = JsonResponse.name
-            let CapName = Username.charAt(0).toUpperCase() + Username.slice(1)
-            let UserGuessedAge = JsonResponse.age
-            return Result.innerHTML = `
-            Your name is ${CapName} and you are ${UserGuessedAge} years old
-            `
+            try{
+                let fetchedProm = await fetch(`${BaseURL}${Name}`)
+                let JsonResponse = await fetchedProm.json();
+                let Username = JsonResponse.name
+                let CapName = Username.charAt(0).toUpperCase() + Username.slice(1)
+                let UserGuessedAge = JsonResponse.age
+                return Result.innerHTML = `
+                Your name is ${CapName} and you are ${UserGuessedAge} years old`
+            }
+            catch (error) {
+                return (AgeError.innerHTML = 'Error, Try Again')
+            }
         })();
     }
 })
@@ -51,12 +58,17 @@ Refresh.addEventListener('click', () => {
     UserInput.value = ''
 })
 
+//For Cute Dog Images
 DogApi = async () => {
-    let PromiseDog = await fetch(`${DogBaseURL}`)
-    console.log(PromiseDog)
-    let JsonDog = await PromiseDog.json()
-    return JsonDog;
-    
+    try{
+        let PromiseDog = await fetch(`${DogBaseURL}`)
+        console.log(PromiseDog)
+        let JsonDog = await PromiseDog.json()
+        return JsonDog;
+    }
+    catch (error) {
+        return (DogError.innerHTML = 'Error, Try Again')
+    }
 }
 
 DogButton.addEventListener('click', async () => {
@@ -66,6 +78,7 @@ DogButton.addEventListener('click', async () => {
  DogImage.innerHTML = `<img src="${ImageSrc}" alt="dog image" width="500px" />`
 })
 
+//For Currency Rates
 convertRate.addEventListener('click', () => {
     if(UserCurrency.value.length >= 1){
         currency = UserCurrency.value.toUpperCase()
@@ -99,7 +112,7 @@ convertRate.addEventListener('click', () => {
 
 })
 
-
+// Currency Codes and Names
 getCurrency = async () => {
     try {
             let fetchedPromise = await fetch(`${CountryCodeBaseURL}`)
