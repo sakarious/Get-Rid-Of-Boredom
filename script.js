@@ -10,14 +10,14 @@ let Name;
 
 //For Cute Dog Images
 
-const DogBaseURL = 'https://dog.ceo/api/breeds/image/random'
+const DogURL = 'https://dog.ceo/api/breeds/image/random'
 const DogButton = document.querySelector('#dogBtn')
 const DogImage = document.querySelector('#image')
 const DogError = document.querySelector('#DogError')
 
 // Currency Codes and Names
 
-const CountryCodeBaseURL = 'response.json'
+const CountryCodeURL = 'response.json'
 const htmlBody = document.querySelector('#id')
 const htmlError = document.querySelector('#countryError')
 const countryCodeButton = document.querySelector('#countryName')
@@ -56,13 +56,13 @@ Submit.addEventListener('click', () => {
 
 Refresh.addEventListener('click', () => {
     UserInput.value = ''
+    Result.innerHTML = ''
 })
 
 //For Cute Dog Images
 DogApi = async () => {
     try{
-        let PromiseDog = await fetch(`${DogBaseURL}`)
-        console.log(PromiseDog)
+        let PromiseDog = await fetch(`${DogURL}`)
         let JsonDog = await PromiseDog.json()
         return JsonDog;
     }
@@ -74,27 +74,20 @@ DogApi = async () => {
 DogButton.addEventListener('click', async () => {
  let ReturnedDogPromise = await DogApi()
  let ImageSrc = ReturnedDogPromise.message
- console.log(ImageSrc)
  DogImage.innerHTML = `<img src="${ImageSrc}" alt="dog image" width="500px" />`
 })
 
 //For Currency Rates
 convertRate.addEventListener('click', () => {
     if(UserCurrency.value.length >= 1){
-        currency = UserCurrency.value.toUpperCase()
-        console.log(currency);
-        
+        currency = UserCurrency.value.toUpperCase();
         ( async () => {
             try{
                 let returnedConversionPromise = await fetch(`${CurrencyBaseURL}${currency}`)
                 let returnedConversionJson = await returnedConversionPromise.json()
-                console.log(returnedConversionJson)
                 let BaseCurrCode = await returnedConversionJson['base_code']
                 let conversionRates = await returnedConversionJson['conversion_rates']
-                console.log(BaseCurrCode)
-                console.log(conversionRates)
                 const rates = Object.entries(conversionRates);
-                console.log(rates)
 
                 for(const [currency, convert] of rates){
                     AllConversion.innerHTML += (`<h2> Currency Code: ${currency}, Conversion Rate: ${convert} </h2>`)
@@ -115,10 +108,8 @@ convertRate.addEventListener('click', () => {
 // Currency Codes and Names
 getCurrency = async () => {
     try {
-            let fetchedPromise = await fetch(`${CountryCodeBaseURL}`)
-            console.log(fetchedPromise);
+            let fetchedPromise = await fetch(`${CountryCodeURL}`)
             let response = await fetchedPromise.json()
-            console.log(response);
             return response
     }
 
@@ -131,8 +122,6 @@ getCurrency = async () => {
 countryCodeButton.addEventListener('click', async () => {
     let currencyArray = await getCurrency();
     let realCurrencyArray = currencyArray.data
-    console.log(realCurrencyArray);
-    console.log(realCurrencyArray[0].name)
      let htmlRealCurrencyArray = realCurrencyArray.map((currency) => {
          return `
          <h2>Country Name: ${currency.name}</h2>
@@ -140,7 +129,6 @@ countryCodeButton.addEventListener('click', async () => {
          <hr>
          `
      })
-     console.log(htmlRealCurrencyArray);
      htmlBody.innerHTML = htmlRealCurrencyArray.join(' ')
     
 })
