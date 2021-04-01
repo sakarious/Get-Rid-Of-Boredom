@@ -24,12 +24,12 @@ const countryCodeButton = document.querySelector('#countryName')
 
 //For Currency Rates
 
-const CurrencyBaseURL = ' https://v6.exchangerate-api.com/v6/7588bb4e69376a482515a285/latest/'
-const UserCurrency = document.querySelector('#currencyCode')
-const ConvertBtn = document.querySelector('#convertRate')
-const BaseCurrHTML = document.querySelector('#baseCurr')
-const AllConversion = document.querySelector('#convert')
-const Error = document.querySelector('#error')
+const currencyBaseURL = ' https://v6.exchangerate-api.com/v6/7588bb4e69376a482515a285/latest/'
+const userCurrency = document.querySelector('#currencyCode')
+const convertRate = document.querySelector('#convertRate')
+const baseCurrHTML = document.querySelector('#baseCurr')
+const allConversion = document.querySelector('#convert')
+const apiError = document.querySelector('#error')
 let currency;
 
 //For Predict Age
@@ -79,24 +79,24 @@ dogButton.addEventListener('click', async () => {
 
 //For Currency Rates
 convertRate.addEventListener('click', () => {
-    if(UserCurrency.value.length >= 1){
-        currency = UserCurrency.value.toUpperCase();
+    if(userCurrency.value.length >= 1){
+        currency = userCurrency.value.toUpperCase();
         ( async () => {
             try{
-                let returnedConversionPromise = await fetch(`${CurrencyBaseURL}${currency}`)
+                let returnedConversionPromise = await fetch(`${currencyBaseURL}${currency}`)
                 let returnedConversionJson = await returnedConversionPromise.json()
                 let BaseCurrCode = await returnedConversionJson['base_code']
                 let conversionRates = await returnedConversionJson['conversion_rates']
                 const rates = Object.entries(conversionRates);
 
                 for(const [currency, convert] of rates){
-                    AllConversion.innerHTML += (`<h2> Currency Code: ${currency}, Conversion Rate: ${convert} </h2>`)
+                    allConversion.innerHTML += (`<h2> Currency Code: ${currency}, Conversion Rate: ${convert} </h2>`)
                 }
-                BaseCurrHTML.innerHTML = `Base Currency: ${BaseCurrCode}`
+                baseCurrHTML.innerHTML = `Base Currency: ${BaseCurrCode}`
             }
 
             catch (error) {
-                return (Error.innerHTML = 'Error, Try Again')
+                return (apiError.innerHTML = 'Error, Try Again')
             }
             
         })();
