@@ -10,10 +10,10 @@ let Name;
 
 //For Cute Dog Images
 
-const DogURL = 'https://dog.ceo/api/breeds/image/random'
-const DogButton = document.querySelector('#dogBtn')
-const DogImage = document.querySelector('#image')
-const DogError = document.querySelector('#DogError')
+const dogURL = 'https://dog.ceo/api/breeds/image/random'
+const dogButton = document.querySelector('#dogBtn')
+const dogImage = document.querySelector('#image')
+const dogError = document.querySelector('#DogError')
 
 // Currency Codes and Names
 
@@ -62,19 +62,19 @@ refresh.addEventListener('click', () => {
 //For Cute Dog Images
 DogApi = async () => {
     try{
-        let PromiseDog = await fetch(`${DogURL}`)
+        let PromiseDog = await fetch(`${dogURL}`)
         let JsonDog = await PromiseDog.json()
         return JsonDog;
     }
     catch (error) {
-        return (DogError.innerHTML = 'Error, Try Again')
+        return (dogError.innerHTML = 'Error, Try Again')
     }
 }
 
-DogButton.addEventListener('click', async () => {
+dogButton.addEventListener('click', async () => {
  let ReturnedDogPromise = await DogApi()
  let ImageSrc = ReturnedDogPromise.message
- DogImage.innerHTML = `<img src="${ImageSrc}" alt="dog image" width="500px" />`
+ dogImage.innerHTML = `<img src="${ImageSrc}" alt="dog image" width="500px" />`
 })
 
 //For Currency Rates
