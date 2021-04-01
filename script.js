@@ -1,11 +1,11 @@
 //For Predict Age
 
-const BaseURL = 'https://api.agify.io?name='
-const UserInput = document.querySelector('#text')
-const Submit= document.querySelector('#submit')
-const Result = document.querySelector('#result')
-const Refresh = document.querySelector('#reload')
-const AgeError = document.querySelector('#AgeError')
+const baseURL = 'https://api.agify.io?name='
+const userInput = document.querySelector('#text')
+const submit= document.querySelector('#submit')
+const result = document.querySelector('#result')
+const refresh = document.querySelector('#reload')
+const ageError = document.querySelector('#AgeError')
 let Name;
 
 //For Cute Dog Images
@@ -33,30 +33,30 @@ const Error = document.querySelector('#error')
 let currency;
 
 //For Predict Age
-Submit.addEventListener('click', () => {
-    if(UserInput.value.length >= 1){
-        Name = UserInput.value.toLowerCase();
+submit.addEventListener('click', () => {
+    if(userInput.value.length >= 1){
+        Name = userInput.value.toLowerCase();
 
         (async () => {
             try{
-                let fetchedProm = await fetch(`${BaseURL}${Name}`)
+                let fetchedProm = await fetch(`${baseURL}${Name}`)
                 let JsonResponse = await fetchedProm.json();
                 let Username = JsonResponse.name
                 let CapName = Username.charAt(0).toUpperCase() + Username.slice(1)
                 let UserGuessedAge = JsonResponse.age
-                return Result.innerHTML = `
+                return result.innerHTML = `
                 Your name is ${CapName} and you are ${UserGuessedAge} years old`
             }
             catch (error) {
-                return (AgeError.innerHTML = 'Error, Try Again')
+                return (ageError.innerHTML = 'Error, Try Again')
             }
         })();
     }
 })
 
-Refresh.addEventListener('click', () => {
-    UserInput.value = ''
-    Result.innerHTML = ''
+refresh.addEventListener('click', () => {
+    userInput.value = ''
+    result.innerHTML = ''
 })
 
 //For Cute Dog Images
