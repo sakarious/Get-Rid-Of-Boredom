@@ -17,7 +17,7 @@ const dogError = document.querySelector('#DogError')
 
 // Currency Codes and Names
 
-const CountryCodeURL = 'response.json'
+const countryCodeURL = 'response.json'
 const htmlBody = document.querySelector('#id')
 const htmlError = document.querySelector('#countryError')
 const countryCodeButton = document.querySelector('#countryName')
@@ -108,7 +108,7 @@ convertRate.addEventListener('click', () => {
 // Currency Codes and Names
 getCurrency = async () => {
     try {
-            let fetchedPromise = await fetch(`${CountryCodeURL}`)
+            let fetchedPromise = await fetch(`${countryCodeURL}`)
             let response = await fetchedPromise.json()
             return response
     }
